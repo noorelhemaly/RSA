@@ -32,5 +32,17 @@ def extended_gcd (a,b):
     g, x, y = extended_gcd(b, a%b)
     return g, 
 
+#funtion to generate RSA keys (private,public)
+def keys (bits):
+    p = generate_prime(bits // 2)
+    q = generate_prime(bits // 2)
+    n = p * q
+    phi = (p - 1) * (q -1)
+
+    while True:
+        e = random.randint 2, phi - 1)
+        if math.gcd(e, phi) == 1:
+            break
+
 
 
