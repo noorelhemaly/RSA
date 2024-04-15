@@ -75,3 +75,13 @@ def factorization_approach(public_key):
     end_time = time.perf_counter()
     return d, end_time - start_time
 
+#function to factorize a number
+def factorize(n):
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+        # Check if i is prime
+            if prime(i):
+                if prime(n // i):
+                    return i, n // i
+    return None
+
