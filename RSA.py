@@ -59,4 +59,8 @@ def encrypt(text, public_key):
     text = [pow(ord(char), e, n) for char in text]
     return encryptedtext
 
-
+#function to decrypt the encrypted text
+def decrypt (encryptedtext, private_key)
+    d, n = private_key
+    text = [chr(pow(char, d,n)for char in encryptedtext)]
+    return text
