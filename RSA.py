@@ -56,7 +56,7 @@ def keys (bits):
 #function to encrypt a text
 def encrypt(text, public_key):
     e, n = public_key
-    text = [pow(ord(char), e, n) for char in text]
+    encryptedtext = [pow(ord(char), e, n) for char in text]
     return encryptedtext
 
 #function to decrypt the encrypted text
@@ -64,3 +64,14 @@ def decrypt (encryptedtext, private_key)
     d, n = private_key
     text = [chr(pow(char, d,n)for char in encryptedtext)]
     return text
+
+#function for factorization approach to calculate private exponent
+def factorization_approach(public_key):
+    start_time = time.perf_counter()
+    e, n = public_key
+    p, q = factorize(n)
+    phi = (p - 1) * (q - 1)
+    d = modular_inverse(e, phi)
+    end_time = time.perf_counter()
+    return d, end_time - start_time
+
