@@ -50,6 +50,13 @@ def keys (bits):
         e = random.randint 2, phi - 1)
         if math.gcd(e, phi) == 1:
             break
+    d = modular_inverse(e, phi)
+    return (e, n), (d, n)
 
+#function to encrypt a text
+def encrypt(text, public_key):
+    e, n = public_key
+    text = [pow(ord(char), e, n) for char in text]
+    return encryptedtext
 
 
