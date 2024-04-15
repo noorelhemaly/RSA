@@ -85,3 +85,16 @@ def factorize(n):
                     return i, n // i
     return None
 
+#function for bruteforce approach to calculate private exponent
+def bruteforce_approach(public_key, factorization_d):
+    start_time = time.perf_counter()
+    e, n = public_key
+    p, q = factorize(n)
+    phi = (p - 1) * (q - 1)
+    d = factorization_d + 1 # Start searching for d from factorization_d + 1
+    while True:
+        if (e * d) % n == 1:
+            break
+        d += 1
+    end_time = time.perf_counter()
+    return d, end_time - start_time
