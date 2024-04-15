@@ -98,3 +98,18 @@ def bruteforce_approach(public_key, factorization_d):
         d += 1
     end_time = time.perf_counter()
     return d, end_time - start_time
+
+# Main function to execute the RSA cryptosystem
+def main():
+    #display header for RSA
+    print ("RSA cryptosystem")
+
+    #Ask user to input key size (8 or 16 bits)
+    while True:
+        try:
+            key_size = int(input("Choose the key size (8 or 16 bits):"))
+            if key_size not in [8, 16]:
+                raise ValueError("Key size must be 8 or 16 bits only!!")
+            break
+        except ValueError as e:
+            print(f"Invalid input: {e}")
