@@ -25,4 +25,12 @@ def prime(n):
         i += 6
     return True
 
+#function to calculate the extended greatest common divisor 
+def extended_gcd (a,b):
+    if b = 0:
+        return a,1,0
+    g, x, y = extended_gcd(b, a%b)
+    return g, 
+
+
 
