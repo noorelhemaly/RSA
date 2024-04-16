@@ -6,10 +6,10 @@ import time
 #function to generate a prime number of specified bits
 def generate_prime(bits):
     while True:
-        p = random.randint 
-        if prime(p):
+        p = random.randint(2**(bits-1), 2**bits - 1)   #generate a random number in the specified range
+        if prime(p):  #check if the number is prime
             return p
-        
+
 #function to check if a number is prime
 def prime(n):
     if n <= 1:
@@ -37,7 +37,7 @@ def extended_gcd (a,b):
     if b == 0:
         return a,1,0
     g, x, y = extended_gcd(b, a%b)
-    return g, 
+    return g, y, x - (a // b) * y
 
 #funtion to generate RSA keys (private,public)
 def keys (bits):
@@ -119,5 +119,15 @@ def main():
     print(f"Generated Public Key (e, n): {public_key}")
     print(f"Generated Private Key (d, n): {private_key}")
 
-
+    # Ask the user if they want to calculate the private exponent and crack the private key
+    choice = input("Do you want to calculate the private exponent (Factorization Approach) and crack the private exponent (Brute Force Approach)? (yes/no): ")
+    if choice.lower() == 'yes':
+        # Factorization Approach
+        print("\nFactorization Approach:")
+        try:
+            d, factorization_time = factorization_approach(public_key)
+            print(f"Factorization Private Exponent (d): {d}")
+            print(f"Average Runtime for Factorization Approach: {factorization_time:.12f} seconds")
+        except ValueError as error:
+            print(f"Factorization Approach Error: {error}")
 
