@@ -140,7 +140,7 @@ def main():
         try:
             d, bruteforce_time = bruteforce_approach(public_key, d)  
             print(f"Brute Force Private Exponent (d): {d}")
-            print(f"Average Runtime for Brute Force Approach: {bruteforce_time:.12} seconds")
+            print(f"Average Runtime for Brute Force Approach: {bruteforce_time:.12f} seconds")
 
         except ValueError as error:
             print(f"Brute Force Approach Error: {error}")
