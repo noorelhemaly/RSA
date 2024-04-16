@@ -113,3 +113,9 @@ def main():
             break
         except ValueError as e:
             print(f"Invalid input: {e}")
+
+    # Generate RSA public and private keys
+    public_key, private_key = keys(key_size)
+    print(f"Generated Public Key (e, n): {public_key}")
+    print(f"Generated Private Key (d, n): {private_key}")
+
