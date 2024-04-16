@@ -92,6 +92,7 @@ def bruteforce_approach(public_key, factorization_d):
     p, q = factorize(n)
     phi = (p - 1) * (q - 1)
     d = factorization_d + 1 # Start searching for d from factorization_d + 1
+    
     while True:
         if (e * d) % n == 1:
             break
@@ -122,12 +123,15 @@ def main():
     # Ask the user if they want to calculate the private exponent and crack the private key
     choice = input("Do you want to calculate the private exponent (Factorization Approach) and crack the private exponent (Brute Force Approach)? (yes/no): ")
     if choice.lower() == 'yes':
+
         # Factorization Approach
         print("\nFactorization Approach:")
+
         try:
             d, factorization_time = factorization_approach(public_key)
             print(f"Factorization Private Exponent (d): {d}")
             print(f"Average Runtime for Factorization Approach: {factorization_time:.12f} seconds")
+
         except ValueError as error:
             print(f"Factorization Approach Error: {error}")
 
@@ -137,6 +141,7 @@ def main():
             d, bruteforce_time = bruteforce_approach(public_key, d)  
             print(f"Brute Force Private Exponent (d): {d}")
             print(f"Average Runtime for Brute Force Approach: {bruteforce_time:} seconds")
+
         except ValueError as error:
             print(f"Brute Force Approach Error: {error}")
     
@@ -145,8 +150,10 @@ def main():
         choice = input("\nDo you want to encrypt and decrypt a text (yes) or exit (no)? ")
         if choice.lower() == "yes":
             text = input("Enter the text to encrypt: ")
+
             encryptedtext = encrypt(text, public_key)
             print(f"Encrypted message: {encryptedtext}")
+
             decrypted_text = decrypt(encryptedtext, private_key)
             print("Decrypted message: ", decrypted_text)
 
