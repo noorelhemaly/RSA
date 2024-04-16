@@ -63,7 +63,7 @@ def encrypt(text, public_key):
 def decrypt (encryptedtext, private_key):
     d, n = private_key
     text = [chr(pow(char, d,n))for char in encryptedtext]
-    return text
+    return ''.join(text)
 
 #function for factorization approach to calculate private exponent
 def factorization_approach(public_key):
@@ -143,17 +143,16 @@ def main():
     # Encrypt and decrypt text or exit the program
     while True:
         choice = input("\nDo you want to encrypt and decrypt a text (yes) or exit (no)? ")
-        if choice = "yes":
+        if choice.lower() == "yes":
             text = input("Enter the text to encrypt: ")
             encryptedtext = encrypt(text, public_key)
             print(f"Encrypted message: {encryptedtext}")
-            text = decrypt(encryptedtext, private_key)
-            print("Decrypted message: ", text)
+            decrypted_text = decrypt(encryptedtext, private_key)
+            print("Decrypted message: ", decrypted_text)
 
-        elif choice = "no":
+        elif choice.lower() == "no":
             break
             
 # Check if the script is run as the main program
 if __name__ == "__main__":
     main()
-
