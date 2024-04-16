@@ -34,7 +34,7 @@ def modular_inverse(a,m):
 
 #function to calculate the extended greatest common divisor 
 def extended_gcd (a,b):
-    if b = 0:
+    if b == 0:
         return a,1,0
     g, x, y = extended_gcd(b, a%b)
     return g, 
@@ -47,7 +47,7 @@ def keys (bits):
     phi = (p - 1) * (q -1)
 
     while True:
-        e = random.randint 2, phi - 1)
+        e = random.randint (2, phi - 1)
         if math.gcd(e, phi) == 1:
             break
     d = modular_inverse(e, phi)
@@ -60,9 +60,9 @@ def encrypt(text, public_key):
     return encryptedtext
 
 #function to decrypt the encrypted text
-def decrypt (encryptedtext, private_key)
+def decrypt (encryptedtext, private_key):
     d, n = private_key
-    text = [chr(pow(char, d,n)for char in encryptedtext)]
+    text = [chr(pow(char, d,n))for char in encryptedtext]
     return text
 
 #function for factorization approach to calculate private exponent
@@ -111,11 +111,13 @@ def main():
             if key_size not in [8, 16]:
                 raise ValueError("Key size must be 8 or 16 bits only!!")
             break
-        except ValueError as e:
-            print(f"Invalid input: {e}")
+        except ValueError as error:
+            print(f"Invalid input: {error}")
 
     # Generate RSA public and private keys
     public_key, private_key = keys(key_size)
     print(f"Generated Public Key (e, n): {public_key}")
     print(f"Generated Private Key (d, n): {private_key}")
+
+
 
