@@ -131,3 +131,13 @@ def main():
         except ValueError as error:
             print(f"Factorization Approach Error: {error}")
 
+        # Brute Force Approach
+        print("\nBrute Force Approach:")
+        try:
+            d, bruteforce_time = bruteforce_approach(public_key, d)  
+            print(f"Brute Force Private Exponent (d): {d}")
+            print(f"Average Runtime for Brute Force Approach: {bruteforce_time:} seconds")
+        except ValueError as error:
+            print(f"Brute Force Approach Error: {error}")
+    
+    
