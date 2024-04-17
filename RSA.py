@@ -86,19 +86,20 @@ def factorize(n):
     return None
 
 #function for bruteforce approach to calculate private exponent
-def bruteforce_approach(public_key, factorization_d):
+def bruteforce_approach(public_key):
     start_time = time.perf_counter()
     e, n = public_key
     p, q = factorize(n)
     phi = (p - 1) * (q - 1)
-    d = factorization_d + 1 # Start searching for d from factorization_d + 1
-
+    attempts = 0
+    d = 1
     while True:
-        if (e * d) % n == 1:
+        attempts += 1
+        if (e * d) % (phi) == 1: 
             break
         d += 1
     end_time = time.perf_counter()
-    return d, end_time - start_time
+    return d, end_time - start_time, attempts
 
 # Main function to execute the RSA cryptosystem
 def main():
@@ -138,10 +139,10 @@ def main():
         # Brute Force Approach
         print("\nBrute Force Approach:")
         try:
-            d, bruteforce_time = bruteforce_approach(public_key, d)  
+            d, bruteforce_time, attempts = bruteforce_approach(public_key)  
             print(f"Brute Force Private Exponent (d): {d}")
             print(f"Average Runtime for Brute Force Approach: {bruteforce_time:.12f} seconds")
-
+            print(f"Number of Attempts: {attempts}")
         except ValueError as error:
             print(f"Brute Force Approach Error: {error}")
     
