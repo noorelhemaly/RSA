@@ -25,19 +25,19 @@ def prime(n):
         i += 6
     return True
 
-#function to calculate the modular inverse
-def modular_inverse(a,m):
-    g, x, y = extended_gcd (a,m)
-    if g !=1:
-        raise ValueError("Modular inverse doesn't exist")
-    return x % m
-
 #function to calculate the extended greatest common divisor 
 def extended_gcd (a,b):
     if b == 0:
         return a,1,0
     g, x, y = extended_gcd(b, a%b)
     return g, y, x - (a // b) * y
+
+#function to calculate the modular inverse
+def modular_inverse(a,m):
+    g, x, y = extended_gcd (a,m)
+    if g !=1:
+        raise ValueError("Modular inverse doesn't exist")
+    return x % m
 
 #funtion to generate RSA keys (private,public)
 def keys (bits):
