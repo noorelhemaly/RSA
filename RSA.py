@@ -144,6 +144,10 @@ def main():
     except ValueError as error:
         print(f"Brute Force Approach Error: {error}")
     
+    print("\nFinal Values of the Private Exponent:")
+    print(f"d from Factorization Approach: {d}")
+    print(f"d from Brute Force Approach: {bruteforce_d}")
+
     while True:
         choice = input("\nReady to Exit (E) or Restart the Program (R)? ")
         if choice.upper() == "E":
