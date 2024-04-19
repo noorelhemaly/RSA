@@ -144,20 +144,12 @@ def main():
     except ValueError as error:
         print(f"Brute Force Approach Error: {error}")
     
-    # Encrypt and decrypt text or exit the program
     while True:
-        choice = input("\nDo you want to encrypt and decrypt a text (yes) or exit (no)? ")
-        if choice.lower() == "yes":
-            text = input("Enter the text to encrypt: ")
-
-            encryptedtext = encrypt(text, public_key)
-            print(f"Encrypted message: {encryptedtext}")
-
-            decrypted_text = decrypt(encryptedtext, private_key)
-            print("Decrypted message: ", decrypted_text)
-
-        elif choice.lower() == "no":
+        choice = input("\nReady to Exit (E) or Restart the Program (R)? ")
+        if choice.upper() == "E":
             break
+        elif choice.upper() == "R":
+            main()
             
 # Check if the script is run as the main program
 if __name__ == "__main__":
