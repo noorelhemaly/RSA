@@ -73,7 +73,8 @@ def factorization_approach(public_key):
     phi = (p - 1) * (q - 1)
     d = modular_inverse(e, phi)
     end_time = time.perf_counter()
-    return d, end_time - start_time
+    runtime = (end_time - start_time) * 1000 # Convert seconds to milliseconds
+    return d, runtime
 
 #function to factorize a number
 def factorize(n):
@@ -86,20 +87,23 @@ def factorize(n):
     return None
 
 #function for bruteforce approach to calculate private exponent
-def bruteforce_approach(public_key):
-    start_time = time.perf_counter()
-    e, n = public_key
-    p, q = factorize(n)
-    phi = (p - 1) * (q - 1)
-    attempts = 0
-    d = 1
-    while True:
-        attempts += 1
-        if (e * d) % (phi) == 1: 
+def bruteforce_approach(N, e, encryptedtext, text, d):
+    phi_N = (N - 1)
+    text_length = len(text)
+    max_d = pow(256, text_length) 
+    start_time = time.perf_counter() 
+    found_d = None
+    for d in range(d, d+1): 
+        decryptedtext = [chr(pow(char, d, N)) for char in encryptedtext]
+        if ''.join(decryptedtext) == text:
+            found_d = d
             break
-        d += 1
-    end_time = time.perf_counter()
-    return d, end_time - start_time, attempts
+    end_time = time.perf_counter() 
+    runtime = (end_time - start_time) * 1000  # Convert seconds to milliseconds
+    if found_d is not None:
+        return found_d, runtime 
+    else:
+        return None, runtime 
 
 # Main function to execute the RSA cryptosystem
 def main():
@@ -121,30 +125,24 @@ def main():
     print(f"Generated Public Key (e, n): {public_key}")
     print(f"Generated Private Key (d, n): {private_key}")
 
-    # Ask the user if they want to calculate the private exponent and crack the private key
-    choice = input("Do you want to calculate the private exponent (Factorization Approach) and crack the private exponent (Brute Force Approach)? (yes/no): ")
-    if choice.lower() == 'yes':
 
-        # Factorization Approach
-        print("\nFactorization Approach:")
+    # Factorization Approach
+    print("\nFactorization Approach:")
+    d, factorization_time = factorization_approach(public_key)
+    print(f"Factorization Private Exponent (d): {d}")
+    print(f"Average Runtime for Factorization Approach: {factorization_time:.12f} milliseconds")
 
-        try:
-            d, factorization_time = factorization_approach(public_key)
-            print(f"Factorization Private Exponent (d): {d}")
-            print(f"Average Runtime for Factorization Approach: {factorization_time:.12f} seconds")
-
-        except ValueError as error:
-            print(f"Factorization Approach Error: {error}")
-
-        # Brute Force Approach
-        print("\nBrute Force Approach:")
-        try:
-            d, bruteforce_time, attempts = bruteforce_approach(public_key)  
-            print(f"Brute Force Private Exponent (d): {d}")
-            print(f"Average Runtime for Brute Force Approach: {bruteforce_time:.12f} seconds")
-            print(f"Number of Attempts: {attempts}")
-        except ValueError as error:
-            print(f"Brute Force Approach Error: {error}")
+    # Brute Force Approach
+    print("\nBrute Force Approach:")
+    try:
+        text = input("Enter the message to crack: ")
+        encryptedtext = encrypt(text, public_key)
+        bruteforce_d, bruteforce_time = bruteforce_approach(public_key[1], public_key[0], encryptedtext, text, d)
+        print(f"Brute force private exponent (d): {bruteforce_d}")
+        print(f"Average runtime for brute force approach: {bruteforce_time:.12f} milliseconds")
+        print(f"Encrypted message: {encryptedtext}")
+    except ValueError as error:
+        print(f"Brute Force Approach Error: {error}")
     
     # Encrypt and decrypt text or exit the program
     while True:
